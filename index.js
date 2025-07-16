@@ -1,9 +1,14 @@
 import express from 'express'
 const app = express()
-const port = 3000
+const port = 7000
 app.use(express.json())
 
-const users = []
+const users = [
+  {
+    "name": "victor",
+    "idade": "18"
+  }
+]
 
 app.post('/users', (req, res) => {
   const body = req.body
@@ -12,7 +17,7 @@ app.post('/users', (req, res) => {
 })
 
 app.get('/users', (req, res) =>{
-  res.send({users})
+  res.send(users)
 })
 
 app.listen(port, () => {
