@@ -1,4 +1,4 @@
-import db from '../config/database.js'
+import db from '../config/database'
 
 db.run(`
     CREATE TABLE IF NOT EXISTS users (
@@ -10,8 +10,8 @@ db.run(`
     )
 `)
 
-function createUserReposioty(newUser){
-    return new Promise((res, rej) =>{
+function createUserReposiory(newUser){
+    return new Promise((resolve, reject) =>{
         const {username, email, password, avatar} = newUser
         db.run(
             `
@@ -21,10 +21,10 @@ function createUserReposioty(newUser){
             [username, email, password, avatar],
             (err) =>{
                 if(err){
-                    rej(err)
+                   reject(err)
                 }
                 else{
-                    res({message: 'Usuario Criado'})
+                    resolve({id: this.lastID, ...newUser})
                 }
             }
         )
@@ -32,5 +32,5 @@ function createUserReposioty(newUser){
 }
 
 export default{
-    createUserReposioty
+    createUserReposiory
 }
