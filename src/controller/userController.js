@@ -1,3 +1,4 @@
+import userService from '../services/userService.js';
 import useService from '../services/userService.js'
 
 //controller basicamente "conversa" com o service e repository para insercao de dados no banmco de dados
@@ -12,6 +13,22 @@ async function creatUserController(req, res) {
     }
 }
 
+async function findAllUserController(req, res) {
+    try{
+        const users = await userService.findAllUsersService()
+        res.send({users})
+    }catch(err){
+        return res.status(404).send(err.message)
+    }
+}
+
+async function findUserByIdController() {
+
+}
+
+
 export default{
-    creatUserController
+    creatUserController,
+    findAllUserController,
+    findUserByIdController,
 }
