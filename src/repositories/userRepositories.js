@@ -1,5 +1,6 @@
 import db from '../config/database.js'
 
+//cadastrar o usuario
 function createUserReposiory(newUser){
     return new Promise((resolve, reject) =>{
         const {username, email, password, avatar} = newUser
@@ -21,6 +22,7 @@ function createUserReposiory(newUser){
     })
 }
 
+//encontrar usuari pelo email
 function findUserByEmailRepository(email){
     return new Promise((resolve, reject) =>{
         db.get(`
@@ -35,7 +37,39 @@ function findUserByEmailRepository(email){
     })
 }
 
+//encontrar usuari pelo id
+function findUserByIdRepository(id){
+    return new Promise((resolve, reject)=>{
+        db.get(
+            `SELECT id, username, email, avatar FROM users WHERE id = ?`, [id], (err, row)=>{
+            if(err){
+                reject(err)
+            }else{
+                resolve(row)
+            }
+            }
+        )
+    })
+}
+
+//encontrar todos os usuarios
+function findAllUsersRepository(){
+    return new Promise((resolve, reject)=>{
+        db.all(
+            `SELECT * FROM users`, [], (err, rows)=>{
+            if(err){
+                reject(err)
+            }else{
+                resolve(rows)
+            }
+            }
+        )
+    })
+}
+
 export default{
     createUserReposiory,
-    findUserByEmailRepository
+    findUserByEmailRepository,
+    findUserByIdRepository,
+    findAllUsersRepository,
 }

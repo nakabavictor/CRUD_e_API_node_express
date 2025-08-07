@@ -1,5 +1,6 @@
 import useService from '../services/userService.js'
 
+//controller basicamente "conversa" com o service e repository para insercao de dados no banmco de dados
 async function creatUserController(req, res) {
     const newUser = req.body;
 

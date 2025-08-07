@@ -4,7 +4,7 @@ import { validate } from '../middlewares/validationMiddleware.js';
 import { userSchema } from '../schema/userSchema.js';
 
 const router = Router()
-
+//rota de antes de ir para o controler(enviar os dados confirmar se o usuario ja nao esta cadastrao utilizando a validacao do schema(zod)
 router.post('/users', validate(userSchema),  userController.creatUserController)
 
 export default router
