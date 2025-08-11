@@ -7,6 +7,11 @@ const userSchema = z.object({
     password: z.string().min(6, "A senha deve ter pelo menos 6 caracteres"),
     avatar: z.url().optional(),
 })
+
+const userIdSchema = z.object({
+    userId: z.number().int().positive('User ID tem que ser inteiro e positivo'),
+})
 export  {
-    userSchema
+    userSchema,
+    userIdSchema
 }

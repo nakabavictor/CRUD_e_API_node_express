@@ -35,9 +35,17 @@ async function upadetUserService(newUser, userId) {
     return userUpdated
 }
 
+async function deleteUserService(userId) {
+    const user = await userRepositories.findUserByIdRepository(userId)
+    if(!user) throw new Error("Usuario nao encontarado")
+    const {message} = await userRepositories.deleteUserByIdRepository(userId)
+    return message
+}
+
 export default{
     createUserService,
     findAllUsersService,
     findUserByIdService,
     upadetUserService,
+    deleteUserService,
 }

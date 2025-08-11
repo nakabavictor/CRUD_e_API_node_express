@@ -92,10 +92,27 @@ function findAllUsersRepository(){
     })
 }
 
+function deleteUserByIdRepository(id){
+    return new Promise((resolve, reject)=>{
+        db.run(
+            `DELETE FROM users
+            WHERE id = ?`, [id],
+            (err)=>{
+            if(err){
+                reject(err)
+            }else{
+                resolve({message: "Usuario deletado com sucesso!", id})
+            }
+            }
+        )
+    })
+}
+
 export default{
     createUserReposiory,
     findUserByEmailRepository,
     findUserByIdRepository,
     findAllUsersRepository,
     updateUserRepository,
+    deleteUserByIdRepository,
 }

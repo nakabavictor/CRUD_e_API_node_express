@@ -44,10 +44,21 @@ async function updateUserController(req, res){
     }
 }
 
+async function deleteUserController(req, res){
+    const {id} = req.params
+    try{
+        const message = await userService.deleteUserService(id)
+        res.send("Usuario deletado!")
+    }catch(err){
+        res.status(406).send(err.message)
+    }
+}
+
 
 export default{
     creatUserController,
     findAllUserController,
     findUserByIdController,
     updateUserController,
+    deleteUserController,
 }
