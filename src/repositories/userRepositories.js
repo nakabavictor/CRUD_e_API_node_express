@@ -26,7 +26,9 @@ function createUserReposiory(newUser){
 function findUserByEmailRepository(email){
     return new Promise((resolve, reject) =>{
         db.get(`
-            SELECT id, username, email, avatar FROM users WHERE email = ?
+            SELECT id, username, email, avatar
+            FROM users
+            WHERE email = ?
         `, [email], (err, row) =>{
             if(err){
                 reject(err)
@@ -41,11 +43,34 @@ function findUserByEmailRepository(email){
 function findUserByIdRepository(id){
     return new Promise((resolve, reject)=>{
         db.get(
-            `SELECT id, username, email, avatar FROM users WHERE id = ?`, [id], (err, row)=>{
+            `SELECT id, username, email, avatar 
+            FROM users 
+            WHERE id = ?`, [id], (err, row)=>{
             if(err){
                 reject(err)
             }else{
                 resolve(row)
+            }
+            }
+        )
+    })
+}
+
+function updateUserRepository(user, id){
+    return new Promise((resolve, reject)=>{
+       const {username, email, password, avatar} = user
+        db.run(
+            `UPDATE users SET 
+                username= ?,
+                email = ?,
+                password = ?,
+                avatar =?
+            WHERE id = ?`, [username, email, password, avatar, id],
+            (err)=>{
+            if(err){
+                reject(err)
+            }else{
+                resolve({id: id, ...user})
             }
             }
         )
@@ -72,4 +97,5 @@ export default{
     findUserByEmailRepository,
     findUserByIdRepository,
     findAllUsersRepository,
+    updateUserRepository,
 }

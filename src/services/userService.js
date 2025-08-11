@@ -25,8 +25,19 @@ async function findUserByIdService(id) {
     return user
 }
 
+async function upadetUserService(newUser, userId) {
+    const user = await userRepositories.findUserByIdRepository(userId)
+    if(!user) throw new Error("Usuario nao encontarado")
+    if(newUser.password){
+        newUser.password = await bcrypt.hash(newUser.password, 10)
+    }
+    const userUpdated = userRepositories.updateUserRepository(newUser, userId)
+    return userUpdated
+}
+
 export default{
     createUserService,
     findAllUsersService,
-    findUserByIdService
+    findUserByIdService,
+    upadetUserService,
 }
